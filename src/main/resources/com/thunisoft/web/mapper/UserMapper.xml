@@ -12,4 +12,12 @@
         WHERE
         id = #{id}
     </select>
+    <select id="findByAccount" resultType="com.thunisoft.web.model.User">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        WHERE
+        id = #{id}
+    </select>
 </mapper>
