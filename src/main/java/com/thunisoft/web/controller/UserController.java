@@ -3,10 +3,7 @@ package com.thunisoft.web.controller;
 import com.thunisoft.web.model.webResult;
 import com.thunisoft.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,11 +25,11 @@ public class UserController {
 	 * @param response 似乎是自动生成
 	 * @return ItdragonResult对象
 	 */
-	@RequestMapping(value="/login", method= RequestMethod.POST)
-	public webResult userLogin(String username, String password,
-                               HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/login", method= RequestMethod.GET)
+	public webResult userLogin(@RequestParam String account, @RequestParam String password,
+							   HttpServletRequest request, HttpServletResponse response) {
 		try {
-			webResult result = userService.userLogin(username, password, request, response);
+			webResult result = userService.userLogin(account, password, request, response);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();

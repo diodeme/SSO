@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController_bak {
     @Autowired
     UserMapper userMapper;
-    @GetMapping("/user")
+    @GetMapping("/test")
     public String getUser(@RequestParam int id)
     {
         User user=userMapper.getUserById(id);

@@ -24,6 +24,12 @@ public class RedisSpringConfig {
     @Value("${redis.node.port}")
     private Integer redisNodePort;
 
+    @Value("${redis.timeout}")
+    private int timeout;
+
+    @Value("${redis.password}")
+    private String password;
+
     private JedisPoolConfig jedisPoolConfig() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(redisMaxTotal);
@@ -32,7 +38,7 @@ public class RedisSpringConfig {
 
     @Bean
     public JedisPool getJedisPool(){    // 省略第一个参数则是采用 Protocol.DEFAULT_DATABASE
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig(), redisNodeHost, redisNodePort);
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig(), redisNodeHost, redisNodePort,timeout,password);
         return jedisPool;
     }
 
