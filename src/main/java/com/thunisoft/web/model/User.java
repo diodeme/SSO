@@ -1,9 +1,6 @@
 package com.thunisoft.web.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+
 
 /**
  * @Author: Diodeme
@@ -12,13 +9,13 @@ import javax.persistence.Transient;
  */
 
 public class User {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //TODO 此处应将jpa格式转换为mybatis格式 自增长主键
+   // @Id
+   // @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;						// 自增长主键
     private String account;					// 登录的账号
     private String userName;				// 注册的昵称
-    @Transient
+   // @Transient
     private String plainPassword; 			// 登录时的密码，不持久化到数据库
     private String password;				// 加密后的密码
     private String salt;					// 用于加密的盐
