@@ -14,7 +14,7 @@ public class User {
    // @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;						// 自增长主键
     private String account;					// 登录的账号
-    private String userName;				// 注册的昵称
+    private String username;				// 注册的昵称
    // @Transient
     private String plainPassword; 			// 登录时的密码，不持久化到数据库
     private String password;				// 加密后的密码
@@ -33,11 +33,11 @@ public class User {
     public void setAccount(String account) {
         this.account = account;
     }
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
     public String getPlainPassword() {
         return plainPassword;
@@ -60,7 +60,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", account=" + account + ", userName=" + userName + ", plainPassword=" + plainPassword
+        return "User [id=" + id + ", account=" + account + ", username=" + username + ", plainPassword=" + plainPassword
                 + ", password=" + password + ", salt=" + salt +"]";
     }
 }

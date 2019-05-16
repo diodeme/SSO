@@ -1,22 +1,24 @@
 package com.thunisoft.web.service;
 
-import com.thunisoft.web.model.User;
-import com.thunisoft.web.model.webResult;
-import com.thunisoft.web.repository.JedisClient;
-import com.thunisoft.web.dao.UserDao;
-import com.thunisoft.web.utils.CookieUtils;
-import com.thunisoft.web.utils.JsonUtils;
-import com.thunisoft.web.utils.webUtils;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+//import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
-import java.util.UUID;
+import com.thunisoft.web.model.webResult;
+import com.thunisoft.web.model.User;
+import com.thunisoft.web.component.JedisClient;
+import com.thunisoft.web.mapper.UserMapper;
+import com.thunisoft.web.utils.CookieUtils;
+import com.thunisoft.web.utils.webUtils;
+import com.thunisoft.web.utils.JsonUtils;
 
 /**
  *
@@ -36,7 +38,7 @@ import java.util.UUID;
 public class UserService {
 	
 	@Autowired
-	private UserDao userDao;
+	private UserMapper userMapper;
 	
 	@Autowired
 	private JedisClient jedisClient;
@@ -54,11 +56,12 @@ public class UserService {
      */
     public webResult registerUser(User user) {
     	// 检查用户名是否注册，一般在前端验证的时候处理，因为注册不存在高并发的情况，这里再加一层查询是不影响性能的
-    	if (null != userDao.findByAccount(user.getAccount())) {
+    	if (null != userMapper.findByAccount(user.getAccount())) {
     	    //如果已经注册，返回报错
     		return webResult.build(400, "");
     	}
-    	userDao.save(user);
+    	//TODO 更新数据库中的条目 自写
+    	//userMapper.save(user);
     	// 注册成功后选择发送邮件激活。现在一般都是短信验证码
     	return webResult.build(200, "");
     }
@@ -69,12 +72,12 @@ public class UserService {
      * @param password 密码
      * @param request 客户端请求
      * @param response 服务器响应
-     * @return ItdragonResult对象
+     * @return
      */
     public webResult userLogin(String account, String password,
-                               HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) {
     	// 判断账号密码是否正确
-		User user = userDao.findByAccount(account);
+		User user = userMapper.findByAccount(account);
 		//ItdragonUtils用于加密解密
 		if (!webUtils.decryptPassword(user, password)) {
 			return webResult.build(400, "账号名或密码错误");
@@ -101,20 +104,11 @@ public class UserService {
 		// 返回token
 		return webResult.ok(token);
 	}
-
-    /**
-     * 注销删除token
-	 * @param token 用户token
-	 */
-	public void logout(String token) {
+    //注销删除token
+    public void logout(String token) {
     	jedisClient.del(REDIS_USER_SESSION_KEY + ":" + token);
     }
 
-    /**
-     * 根据token从redis中查询用户信息
-     * @param token
-     * @return ItdragonResult对象
-     */
 	public webResult queryUserByToken(String token) {
 		// 根据token从redis中查询用户信息
 		String json = jedisClient.get(REDIS_USER_SESSION_KEY + ":" + token);

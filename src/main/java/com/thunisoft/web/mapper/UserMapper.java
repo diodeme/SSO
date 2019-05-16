@@ -9,5 +9,8 @@ import com.thunisoft.web.model.User;
  */
 @Mapper
 public interface UserMapper {
+    // 通过ID查用户信息
     User getUserById(int id);
+    // 通过账号查用户信息
+    User findByAccount(String account);
 }
