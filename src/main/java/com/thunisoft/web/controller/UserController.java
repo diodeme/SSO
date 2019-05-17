@@ -16,14 +16,14 @@ public class UserController {
 	 */
 	@Autowired
 	private UserService userService;
-
+	//TODO cookie的运用 数据库的IO
 	/**
 	 * 用户登录controller，直接与前端进行交互的函数
 	 * @param account 用户名
 	 * @param password 密码
 	 * @param request 似乎是自动生成
 	 * @param response 似乎是自动生成
-	 * @return ItdragonResult对象
+	 * @return webResult对象
 	 */
 	@RequestMapping(value="/login", method= RequestMethod.GET)
 	public webResult userLogin(@RequestParam String account, @RequestParam String password,
@@ -51,7 +51,7 @@ public class UserController {
     /**
      * 根据token寻找用户
 	 * @param token 用户token
-	 * @return ItdragonResult对象
+	 * @return webResult对象
 	 */
 	@RequestMapping("/token/{token}")
 	public Object getUserByToken(@PathVariable String token) {
