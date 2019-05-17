@@ -4,10 +4,12 @@ package com.thunisoft.web.model;
 
 /**
  * @Author: Diodeme
- * @Date: 2019/5/14 12:49
- * @Version 1.0
+ * @Date: 2019/5/14
  */
 
+/**
+ * 用户POJO
+ */
 public class User {
     //TODO 此处应将jpa格式转换为mybatis格式 自增长主键
    // @Id

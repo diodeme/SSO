@@ -12,12 +12,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
 
 /**
- * @ Configuration   作用于类上，相当于一个xml配置文件
- * @ Bean            作用于方法上，相当于xml配置中的<bean>
- * @ PropertySource  指定读取的配置文件
- * @ Value           获取配置文件的值
+ * httpclient类
  */
 @Configuration
 @PropertySource(value = "classpath:httpclient.properties")

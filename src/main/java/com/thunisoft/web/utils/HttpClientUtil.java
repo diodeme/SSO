@@ -18,7 +18,14 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
 
+/**
+ * httpClient操作类
+ */
 public class HttpClientUtil {
 	
 	public static String doGet(String url) {							// 无参数get请求

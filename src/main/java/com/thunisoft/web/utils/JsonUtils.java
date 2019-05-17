@@ -5,7 +5,14 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
 
+/**
+ * json操作类
+ */
 public class JsonUtils {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();

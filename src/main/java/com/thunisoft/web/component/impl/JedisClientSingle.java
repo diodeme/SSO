@@ -5,13 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
+/**
+ * jedis类 用于连接redis 并于redis进行交互
+ */
 @Component
 public class JedisClientSingle implements JedisClient {
 	
 	@Autowired
 	private JedisPool jedisPool;
 
+	/**
+	 * 获取key值对应的value
+	 * @param key key值
+	 * @return string value
+	 */
 	@Override
 	public String get(String key) {
 		Jedis jedis = jedisPool.getResource();
@@ -20,6 +31,12 @@ public class JedisClientSingle implements JedisClient {
 		return string;
 	}
 
+	/**
+	 * 设置key，value值
+	 * @param key key值
+	 * @param value value值
+	 * @return string 状态值
+	 */
 	@Override
 	public String set(String key, String value) {
 		Jedis jedis = jedisPool.getResource();

@@ -6,7 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
 
+/**
+ * cookie操作类
+ */
 public final class CookieUtils {
 
     /**

@@ -8,7 +8,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/14
+ */
 
+/**
+ * 用户控制类
+ * 登录，注册，注销
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -17,17 +25,17 @@ public class UserController {
 	 */
 	@Autowired
 	private UserService userService;
-	//TODO 1.cookie的运用 数据库的IO 具体：同一个域的cookie可实现自动登陆
-	//TODO 2.登录验证 不能直接通过url访问 具体：访问之前先ajax cookie
+	//TODO 1.注册
 	//TODO 3.单点登录
-	/**
-	 * 用户登录controller，直接与前端进行交互的函数
-	 * @param account 用户名
-	 * @param password 密码
-	 * @param request 似乎是自动生成
-	 * @param response 似乎是自动生成
-	 * @return webResult对象
-	 */
+
+    /**
+     * 用户登录
+     * @param account 用户帐号
+     * @param password 用户密码
+     * @param request http request
+     * @param response http response
+     * @return webResult对象 含状态码
+     */
 	@RequestMapping(value="/login", method= RequestMethod.POST)
 	public webResult userLogin(@RequestParam(value = "account",defaultValue = "") String account, @RequestParam(value = "password",defaultValue = "") String password,
 							   HttpServletRequest request, HttpServletResponse response) {
@@ -39,6 +47,13 @@ public class UserController {
 			return webResult.build(500, "");
 		}
 	}
+
+    /**
+     * 页面预加载时传递cookie
+     * @param request
+     * @param response
+     * @return webResult对象 包含状态码
+     */
     @RequestMapping(value="/login", method= RequestMethod.GET)
     public webResult cookie(HttpServletRequest request, HttpServletResponse response){
         Cookie[] cookies = request.getCookies();

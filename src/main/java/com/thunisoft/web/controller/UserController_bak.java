@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: Diodeme
- * @Date: 2019/5/14 13:15
- * @Version 1.0
+ * @Date: 2019/5/14
  */
 @RestController
 @RequestMapping

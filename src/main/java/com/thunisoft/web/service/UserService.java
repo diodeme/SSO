@@ -19,13 +19,12 @@ import com.thunisoft.web.mapper.UserMapper;
 import com.thunisoft.web.utils.CookieUtils;
 import com.thunisoft.web.utils.webUtils;
 import com.thunisoft.web.utils.JsonUtils;
-
 /**
- *
- * 它负责三件事:
- * 第一件事情：验证用户信息是否正确，并将登录成功的用户信息保存到Redis数据库中。
- * 第二件事情：负责判断用户令牌是否过期，若没有则刷新令牌存活时间。
- * 第三件事情：负责从Redis数据库中删除用户信息。
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
+/**
+ * 注册，登录，注销，根据token(cookie)查询用户信息
  * 主要有四个函数：
  * registerUser：用户注册
  * userLogin：用户登录
@@ -33,7 +32,6 @@ import com.thunisoft.web.utils.JsonUtils;
  * queryUserByToken：根据用户token在redis查找用户信息
  */
 @Service
-//@Transactional
 @PropertySource(value = "classpath:redis.properties")
 public class UserService {
 	
@@ -67,12 +65,12 @@ public class UserService {
     }
 
     /**
-     *
+     * 用户登录，新建session(cookie)写入redis中(返回至浏览器)
      * @param account 账户
      * @param password 密码
      * @param request 客户端请求
      * @param response 服务器响应
-     * @return
+     * @return webResult对象，包含状态码
      */
     public webResult userLogin(String account, String password,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -104,11 +102,20 @@ public class UserService {
 		// 返回token
 		return webResult.ok(token);
 	}
-    //注销删除token
-    public void logout(String token) {
+
+	/**
+	 * 注销删除token
+	 * @param token token
+	 */
+	public void logout(String token) {
     	jedisClient.del(REDIS_USER_SESSION_KEY + ":" + token);
     }
 
+	/**
+	 * 根据token(cookie)查找对应用户
+	 * @param token token
+	 * @return webResult对象 包含状态码
+	 */
 	public webResult queryUserByToken(String token) {
 		// 根据token从redis中查询用户信息
 		String json = jedisClient.get(REDIS_USER_SESSION_KEY + ":" + token);

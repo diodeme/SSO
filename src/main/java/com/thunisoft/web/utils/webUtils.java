@@ -7,11 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.UUID;
-
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
 
 /**
  * 工具类
- * @author itdragon
  * 加密解密
  */
 public class webUtils {

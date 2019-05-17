@@ -1,5 +1,12 @@
 package com.thunisoft.web.component;
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
 
+/**
+ * jedis接口
+ */
 public interface JedisClient {
 	String get(String key);
 	String set(String key, String value);

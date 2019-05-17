@@ -4,7 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
 
+/**
+ * 封装状态码
+ */
 public class webResult {
 	
     private static final ObjectMapper MAPPER = new ObjectMapper();	// 定义jackson对象

@@ -10,7 +10,14 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedisPool;
+/**
+ * @Author: Diodeme
+ * @Date: 2019/5/15
+ */
 
+/**
+ * redis配置类
+ */
 @Configuration
 @PropertySource(value = "classpath:redis.properties")//引入配置
 public class RedisSpringConfig {
