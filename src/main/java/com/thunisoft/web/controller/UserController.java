@@ -28,6 +28,18 @@ public class UserController {
 	//TODO 1.注册
 	//TODO 3.单点登录
 
+    //TODO 注册
+    @RequestMapping(value = "/sign",method = RequestMethod.POST)
+    public webResult userSign(@RequestParam(value = "account",defaultValue = "") String account, @RequestParam(value = "password",defaultValue = "") String password,
+                               HttpServletRequest request, HttpServletResponse response){
+        try {
+            webResult result = userService.userLogin(account, password, request, response);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return webResult.build(500, "");
+        }
+    }
     /**
      * 用户登录
      * @param account 用户帐号
@@ -71,13 +83,13 @@ public class UserController {
 
     /**
      * 注销
-	 * @param token 用户token
 	 * @return index页面
 	 */
-	@RequestMapping(value="/logout/{token}")
-	public String logout(@PathVariable String token) {
-		userService.logout(token); // 思路是从Redis中删除key，实际情况请和业务逻辑结合
-		return "index";
+	@RequestMapping(value="/logout", method= RequestMethod.GET)
+	public Long logout(HttpServletRequest request, HttpServletResponse response) {
+		//从redis中删除token
+        Cookie[] cookies = request.getCookies();
+	    return userService.logout(cookies[0].getValue());
 	}
 
     /**

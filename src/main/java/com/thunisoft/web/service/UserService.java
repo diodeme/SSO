@@ -107,8 +107,8 @@ public class UserService {
 	 * 注销删除token
 	 * @param token token
 	 */
-	public void logout(String token) {
-    	jedisClient.del(REDIS_USER_SESSION_KEY + ":" + token);
+	public Long logout(String token) {
+    	return jedisClient.del(REDIS_USER_SESSION_KEY + ":" + token);
     }
 
 	/**
