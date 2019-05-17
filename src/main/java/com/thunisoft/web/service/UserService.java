@@ -52,7 +52,7 @@ public class UserService {
     /**
      * 用户注册
      * @param user 用户对象
-     * @return ItdragonResult对象
+     * @return webResult对象
      */
     public webResult registerUser(User user) {
     	// 检查用户名是否注册，一般在前端验证的时候处理，因为注册不存在高并发的情况，这里再加一层查询是不影响性能的
