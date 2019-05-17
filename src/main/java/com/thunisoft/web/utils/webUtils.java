@@ -28,6 +28,8 @@ public class webUtils {
 	}
 	//解密并判断是否相等
 	public static boolean decryptPassword(User user, String plainPassword) {
+		if(null==user)
+			return false;
 		String temPassword = user.getSalt() + plainPassword;
 		String md5Password = DigestUtils.md5DigestAsHex(temPassword.getBytes());
 		return user.getPassword().equals(md5Password);

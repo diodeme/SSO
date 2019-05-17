@@ -5,6 +5,7 @@ import com.thunisoft.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +17,9 @@ public class UserController {
 	 */
 	@Autowired
 	private UserService userService;
-	//TODO cookie的运用 数据库的IO
+	//TODO 1.cookie的运用 数据库的IO 具体：同一个域的cookie可实现自动登陆
+	//TODO 2.登录验证 不能直接通过url访问 具体：访问之前先ajax cookie
+	//TODO 3.单点登录
 	/**
 	 * 用户登录controller，直接与前端进行交互的函数
 	 * @param account 用户名
@@ -25,8 +28,8 @@ public class UserController {
 	 * @param response 似乎是自动生成
 	 * @return webResult对象
 	 */
-	@RequestMapping(value="/login", method= RequestMethod.GET)
-	public webResult userLogin(@RequestParam String account, @RequestParam String password,
+	@RequestMapping(value="/login", method= RequestMethod.POST)
+	public webResult userLogin(@RequestParam(value = "account",defaultValue = "") String account, @RequestParam(value = "password",defaultValue = "") String password,
 							   HttpServletRequest request, HttpServletResponse response) {
 		try {
 			webResult result = userService.userLogin(account, password, request, response);
@@ -36,6 +39,20 @@ public class UserController {
 			return webResult.build(500, "");
 		}
 	}
+    @RequestMapping(value="/login", method= RequestMethod.GET)
+    public webResult cookie(HttpServletRequest request, HttpServletResponse response){
+        Cookie[] cookies = request.getCookies();
+        if(null==cookies)
+            return webResult.build(250,"无cookie");
+        try {
+            webResult result = userService.queryUserByToken(cookies[0].getValue());
+            return result;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return webResult.build(500, "");
+        }
+
+    }
 
     /**
      * 注销
