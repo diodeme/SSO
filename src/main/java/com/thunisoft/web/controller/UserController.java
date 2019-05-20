@@ -1,6 +1,7 @@
 package com.thunisoft.web.controller;
 
-import com.thunisoft.web.model.webResult;
+import com.thunisoft.web.POJO.User;
+import com.thunisoft.web.POJO.webResult;
 import com.thunisoft.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,11 @@ public class UserController {
     public webResult userSign(@RequestParam(value = "account",defaultValue = "") String account, @RequestParam(value = "password",defaultValue = "") String password,
                                HttpServletRequest request, HttpServletResponse response){
         try {
-            webResult result = userService.userLogin(account, password, request, response);
+        	User user=new User();
+        	user.setAccount(account);
+        	user.setPassword(password);
+        	user.setPlainPassword(password);
+            webResult result = userService.registerUser(user,request,response);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

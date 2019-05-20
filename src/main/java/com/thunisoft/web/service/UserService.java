@@ -12,9 +12,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.thunisoft.web.model.webResult;
-import com.thunisoft.web.model.User;
-import com.thunisoft.web.component.JedisClient;
+import com.thunisoft.web.POJO.webResult;
+import com.thunisoft.web.POJO.User;
 import com.thunisoft.web.mapper.UserMapper;
 import com.thunisoft.web.utils.CookieUtils;
 import com.thunisoft.web.utils.webUtils;
@@ -48,19 +47,20 @@ public class UserService {
 	private Integer SSO_SESSION_EXPIRE;
 
     /**
-     * 用户注册
-     * @param user 用户对象
-     * @return webResult对象
+     *
+     * @param user
+     * @param request
+     * @param response
+     * @return
      */
-    public webResult registerUser(User user) {
-    	// 检查用户名是否注册，一般在前端验证的时候处理，因为注册不存在高并发的情况，这里再加一层查询是不影响性能的
-    	if (null != userMapper.findByAccount(user.getAccount())) {
-    	    //如果已经注册，返回报错
-    		return webResult.build(400, "");
-    	}
-    	//TODO 更新数据库中的条目 自写
-    	//userMapper.save(user);
-    	// 注册成功后选择发送邮件激活。现在一般都是短信验证码
+    public webResult registerUser(User user,HttpServletRequest request, HttpServletResponse response) {
+        if (null != userMapper.findByAccount(user.getAccount())) {
+            //如果已经注册，返回报错
+            return webResult.build(400, "用户已经注册！！");
+        }
+		webUtils.entryptPassword(user);
+		user.setUsername(nameService.getRandomJianHan(3));
+		userMapper.insertUser(user.getAccount(),user.getUsername(),user.getPassword(),user.getSalt());
     	return webResult.build(200, "");
     }
 

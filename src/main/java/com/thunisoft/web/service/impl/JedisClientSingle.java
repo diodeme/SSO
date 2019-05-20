@@ -1,6 +1,6 @@
-package com.thunisoft.web.component.impl;
+package com.thunisoft.web.service.impl;
 
-import com.thunisoft.web.component.JedisClient;
+import com.thunisoft.web.service.JedisClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;

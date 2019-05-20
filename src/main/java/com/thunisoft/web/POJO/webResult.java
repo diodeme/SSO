@@ -1,4 +1,4 @@
-package com.thunisoft.web.model;
+package com.thunisoft.web.POJO;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -4,7 +4,7 @@
 <mapper namespace="com.thunisoft.web.mapper.UserMapper">
     <sql id="table">users</sql>
     <sql id="selectFields">id,account,username,password,salt</sql>
-    <select id="getUserById" resultType="com.thunisoft.web.model.User">
+    <select id="getUserById" resultType="com.thunisoft.web.POJO.User">
         SELECT
         <include refid="selectFields"/>
         FROM
@@ -12,7 +12,7 @@
         WHERE
         id = #{id}
     </select>
-    <select id="findByAccount" resultType="com.thunisoft.web.model.User">
+    <select id="findByAccount" resultType="com.thunisoft.web.POJO.User">
         SELECT
         <include refid="selectFields"/>
         FROM
@@ -20,4 +20,8 @@
         WHERE
         account = #{account}
     </select>
+    <insert id="insertUser" parameterType="com.thunisoft.web.POJO.User">
+          insert into users(account,username,password,salt)
+               values(#{account},#{username},#{password},#{salt})
+    </insert>
 </mapper>

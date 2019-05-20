@@ -1,6 +1,6 @@
 package com.thunisoft.web.utils;
 
-import com.thunisoft.web.model.User;
+import com.thunisoft.web.POJO.User;
 import org.springframework.util.DigestUtils;
 
 import java.text.SimpleDateFormat;
