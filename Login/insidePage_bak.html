@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="http://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+    </head>
+    <body id="body">
+        <div text-align="center">
+            <div id="content"></div>
+            点这里<button onclick="logout()">注销</button>
+        </div>
+        <script>
+            //预加载函数：判断是否登录
+            (function ($) {
+                $.ajax({
+                    async:false,
+                    type: "GET",
+                    url: "http://me.diodeu.xyz:8080/user/login",
+                    xhrFields:{withCredentials:true},
+                    success: function (response) {
+                        if(response.status!=200)
+                            window.location.replace("index.html");
+                        else
+                            $("#content").html("username:"+response.data.username+" account:"+response.data.account+" id:"+response.data.id);
+                    }
+                });
+            })(jQuery);
+           function logout(){
+                $.ajax({
+                    type: "GET",
+                    url: "http://me.diodeu.xyz:8080/user/logout",
+                    xhrFields:{withCredentials:true},
+                    success: function (response) {
+                        if(response==1)
+                            window.location.replace("index.html");
+                    }
+                });
+            }
+        </script>
+    </body>   
+</html>

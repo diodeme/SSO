@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+<meta charset="UTF-8">
+<title>个人信息</title>
+<meta name="viewport"
+content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+<script src="http://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+
+<div class="wrapper">
+	<div class="profile-card js-profile-card">
+		<div class="profile-card__img">
+			<img src="timg.jpg" alt="profile card">
+		</div>
+	
+		<div class="profile-card__cnt js-profile-cnt">
+			<div class="profile-card__name" id="name"></div>
+			<div class="profile-card__txt" id="txt"></div>
+		</div>
+		<div class="profile-card-ctr">
+			<button class="profile-card__button button--orange" onclick="logout()">SIGNOUT</button>
+		</div>
+	</div>
+</div>
+	
+<script>
+	//预加载函数：判断是否登录
+	(function ($) {
+			$.ajax({
+					async:false,
+					type: "GET",
+					url: "http://me.diodeu.xyz:8080/user/login",
+					xhrFields:{withCredentials:true},
+					success: function (response) {
+							if(response.status!=200)
+									window.location.replace("index.html");
+							else{
+									$("#name").text(response.data.username);
+									$("#txt").html("<strong>ID:</strong>"+response.data.id+" <strong>Account:</strong>"+response.data.account);
+							}
+								
+					}
+			});
+	})(jQuery);
+ function logout(){
+			$.ajax({
+					type: "GET",
+					url: "http://me.diodeu.xyz:8080/user/logout",
+					xhrFields:{withCredentials:true},
+					success: function (response) {
+							if(response==1)
+									window.location.replace("index.html");
+					}
+			});
+	}
+</script>
+
+
+
+
+
+
+</body>
+
+</html>
